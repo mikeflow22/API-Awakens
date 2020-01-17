@@ -13,6 +13,7 @@
 		1B20E0D123D11F3F00DA4B60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B20E0CF23D11F3F00DA4B60 /* Main.storyboard */; };
 		1B20E0D323D11F4000DA4B60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B20E0D223D11F4000DA4B60 /* Assets.xcassets */; };
 		1B20E0D623D11F4000DA4B60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B20E0D423D11F4000DA4B60 /* LaunchScreen.storyboard */; };
+		1B20E0E623D1F94800DA4B60 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B20E0E523D1F94800DA4B60 /* Character.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		1B20E0D223D11F4000DA4B60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B20E0D523D11F4000DA4B60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B20E0D723D11F4000DA4B60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1B20E0E523D1F94800DA4B60 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		1B20E0DD23D1F52000DA4B60 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1B20E0E523D1F94800DA4B60 /* Character.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -205,6 +208,7 @@
 				1B20E0CE23D11F3F00DA4B60 /* ViewController.swift in Sources */,
 				1B20E0CA23D11F3F00DA4B60 /* AppDelegate.swift in Sources */,
 				1B20E0CC23D11F3F00DA4B60 /* SceneDelegate.swift in Sources */,
+				1B20E0E623D1F94800DA4B60 /* Character.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +354,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X4W7EQ4E4R;
-				INFOPLIST_FILE = AwakenAPI/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/AwakenAPI/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -368,7 +372,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = X4W7EQ4E4R;
-				INFOPLIST_FILE = AwakenAPI/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/AwakenAPI/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
