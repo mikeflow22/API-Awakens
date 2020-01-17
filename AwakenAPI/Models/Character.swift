@@ -21,12 +21,6 @@ struct Character: Codable {
     let birthYear: String
     let eyeColor: String
     let hairColor: String
-    
-      /*
-     because the api indicates the path is people, we can implement a static representation of that on the type
-     */
-    static let path = "people"
-    
 }
 
 
