@@ -37,8 +37,27 @@ class ViewController: UIViewController {
                 print("Character name: \(character.name)")
             }
         }
+        
+        print("************************************************************")
+        
+        network.fetchAllVehicles { (vehicles, error) in
+              if let error = error {
+                          print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                          return
+                      }
+                      
+                      guard let returnedvehicles = vehicles else {
+                          print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                          return
+                      }
+                      
+                      for vehicles in returnedvehicles {
+                          print("Character name: \(vehicles.name)")
+                      }
+                  }
+        }
     }
 
 
-}
+
 

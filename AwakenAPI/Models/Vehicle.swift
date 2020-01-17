@@ -11,7 +11,7 @@ import Foundation
 struct Vehicle: Codable {
     let name:  String
     let model: String
-    let cost: String
+    let costInCredits: String
     let length: String
     let vehicleClass: String
     let crew: String
