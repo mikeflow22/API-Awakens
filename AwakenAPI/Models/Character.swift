@@ -10,7 +10,7 @@ import Foundation
 
 struct Character: Codable {
     let name: String
-    let height: Int
+    let height: String
     
     /*
      The following are representations of snake_case on the api. Here we have to be sure to capitalize the word after the "_" so that the compiler will know its the begining of the second word.
