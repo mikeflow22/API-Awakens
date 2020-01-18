@@ -13,7 +13,7 @@ struct Starship: Codable {
        let model: String
        let costInCredits: String
        let length: String
-       let vehicleClass: String
+       let starshipClass: String
        let crew: String
     
 }

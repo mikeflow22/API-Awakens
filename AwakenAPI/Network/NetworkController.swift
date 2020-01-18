@@ -108,7 +108,7 @@ class NetworkController {
     }
 
     ///This function will return all Starships
-     func fetchAllStarship(completion: @escaping ([Starship]?, Error?) -> Void) {
+     func fetchAllStarships(completion: @escaping ([Starship]?, Error?) -> Void) {
          
          //construct the url to send in the request
          let url =  baseURL.appendingPathComponent(Constants.starships)
@@ -139,7 +139,7 @@ class NetworkController {
              decoder.keyDecodingStrategy =  .convertFromSnakeCase
              
              do {
-                 let arrayOfStarship  =  try decoder.decode(Transportation.self, from: data).results
+                 let arrayOfStarship  =  try decoder.decode(Aircraft.self, from: data).results
                  
                  completion(arrayOfStarship, nil)
              } catch  {

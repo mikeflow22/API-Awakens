@@ -52,11 +52,28 @@ class ViewController: UIViewController {
                       }
                       
                       for vehicles in returnedvehicles {
-                          print("Character name: \(vehicles.name)")
+                          print("Vehicles name: \(vehicles.name)")
+                      }
+                  }
+        
+        network.fetchAllStarships { (starships, error) in
+              if let error = error {
+                          print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                          return
+                      }
+                      
+                      guard let returnedStarships = starships else {
+                          print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                          return
+                      }
+                      
+                      for starship in returnedStarships {
+                          print("Starship name: \(starship.name)")
                       }
                   }
         }
-    }
+    
+    } //end of file
 
 
 
