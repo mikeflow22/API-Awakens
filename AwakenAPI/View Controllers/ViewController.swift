@@ -9,17 +9,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        // Do any additional setup after loading the view.
-//        let url = URL(string: "https://swapi.co/api/people")!
-//        let data = try! Data(contentsOf: url)
-//        let  decoder = JSONDecoder()
-//
-//
-//        let arrayOfPeople = try! decoder.decode(People.self, from: data)
-//        print("this is the array of people: \(arrayOfPeople.results.description)")
         
         let network = NetworkController()
         network.fetchAllCharacters { (characters, error) in
