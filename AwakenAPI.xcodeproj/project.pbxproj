@@ -22,6 +22,7 @@
 		1BDE185123D281A8007F9E1F /* Aircraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDE185023D281A8007F9E1F /* Aircraft.swift */; };
 		1BDE185323D28949007F9E1F /* HomeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDE185223D28949007F9E1F /* HomeTableViewController.swift */; };
 		1BDE185D23D37D2E007F9E1F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDE185C23D37D2E007F9E1F /* DetailViewController.swift */; };
+		1BDE185F23D50BBF007F9E1F /* Homeworld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDE185E23D50BBF007F9E1F /* Homeworld.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		1BDE185023D281A8007F9E1F /* Aircraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aircraft.swift; sourceTree = "<group>"; };
 		1BDE185223D28949007F9E1F /* HomeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = HomeTableViewController.swift; path = AwakenAPI/Storyboards/HomeTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		1BDE185C23D37D2E007F9E1F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		1BDE185E23D50BBF007F9E1F /* Homeworld.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homeworld.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +97,7 @@
 				1BDE184C23D23AF2007F9E1F /* Vehicle.swift */,
 				1BDE184E23D28152007F9E1F /* Starship.swift */,
 				1BDE185023D281A8007F9E1F /* Aircraft.swift */,
+				1BDE185E23D50BBF007F9E1F /* Homeworld.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				1B20E0CC23D11F3F00DA4B60 /* SceneDelegate.swift in Sources */,
 				1BDE184923D231D7007F9E1F /* People.swift in Sources */,
 				1BDE185123D281A8007F9E1F /* Aircraft.swift in Sources */,
+				1BDE185F23D50BBF007F9E1F /* Homeworld.swift in Sources */,
 				1B20E0E623D1F94800DA4B60 /* Character.swift in Sources */,
 				1BDE184B23D23ADC007F9E1F /* Transportation.swift in Sources */,
 			);

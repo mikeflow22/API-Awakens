@@ -151,4 +151,39 @@ class NetworkController {
          }.resume()
     }
 
+    ///this function will return the home town
+    func homeWordFor(character: Character, completion: @escaping (String?, Error?) -> Void){
+        //get the url from the character passed in
+        let url = character.homeworld
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error)  in
+            if let response = response as? HTTPURLResponse {
+                print("Response: \(response.statusCode)")
+            }
+            
+            if let error = error {
+                print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                completion(nil, error)
+                return
+            }
+            
+            guard let data = data else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                completion(nil, error)
+                return
+            }
+            let decoder =  JSONDecoder()
+            do {
+                let homeworld = try decoder.decode(Homeworld.self, from: data).name
+                completion(homeworld, nil)
+            } catch  {
+                print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")
+                completion(nil, error)
+                return
+            }
+        }.resume()
+    }
+    
+    
+    
 }
