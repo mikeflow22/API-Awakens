@@ -382,7 +382,7 @@
                         <outlet property="englishProperties" destination="ZKK-Du-kNU" id="TqC-Cr-ZFH"/>
                         <outlet property="largestLabel2" destination="r3f-B4-xp2" id="FVB-HN-ZMV"/>
                         <outlet property="lenghtHeightLabel2" destination="GF0-RX-WOd" id="ct5-71-VCl"/>
-                        <outlet property="lengthHeightLabel1" destination="GF0-RX-WOd" id="dVX-L2-KnB"/>
+                        <outlet property="lengthHeightLabel1" destination="awI-aZ-mS8" id="We0-Mv-ymQ"/>
                         <outlet property="makeBornLabel1" destination="ig3-Nv-cug" id="H5w-dc-CZR"/>
                         <outlet property="makeBornLabel2" destination="PaV-5j-U0a" id="prN-7P-E9J"/>
                         <outlet property="metricProperties" destination="bCD-wG-u7U" id="kJ4-Au-yMr"/>

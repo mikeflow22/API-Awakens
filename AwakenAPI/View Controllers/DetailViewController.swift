@@ -15,6 +15,7 @@ class DetailViewController: UIViewController {
         didSet {
             DispatchQueue.main.async {
                 self.title = "Characters"
+                self.updateViewsForCharacters()
             }
             if let passedInCharacters = characters {
                 for character in passedInCharacters {
@@ -81,6 +82,7 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         picker.delegate = self
         picker.dataSource = self
+        updateViewsForCharacters()
     }
     
     //MARK: - IBActions
@@ -89,10 +91,33 @@ class DetailViewController: UIViewController {
     
     @IBAction func convertToCreditsButtonTapped(_ sender: UIButton) {
     }
+    
     @IBAction func convertToEnglishMeasurement(_ sender: UIButton) {
+        self.metricProperties.setTitleColor(.gray, for: .normal)
+        self.englishProperties.setTitleColor(.blue, for: .normal)
+        
+        guard let height = lenghtHeightLabel2.text, !height.isEmpty, let heightDouble = Double(height) else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return
+        }
+        var inches = heightDouble / 12.0
+//        inches.rounded(.toNearestOrAwayFromZero)
+        lenghtHeightLabel2.text = "\(inches.rounded(.toNearestOrAwayFromZero)) ft."
     }
     
+   
+    
     @IBAction func convertToMetricButtonTapped(_ sender: UIButton) {
+        self.englishProperties.setTitleColor(.gray, for: .normal)
+        self.metricProperties.setTitleColor(.blue, for: .normal)
+              guard let height = lenghtHeightLabel2.text, !height.isEmpty, let heightDouble = Double(height) else {
+                  print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                  return
+              }
+        
+        var meters = heightDouble * 0.0254
+        lenghtHeightLabel2.text =  "\(meters.rounded())m"
+        
     }
     
     //MARK: - Class Methods
@@ -102,11 +127,15 @@ class DetailViewController: UIViewController {
             return
         }
         
+        let characterArraySortedByHeight =  passedInCharacters.sorted(by: { Int($0.height)! > Int($1.height)! })
         //we have an array of characters configure the picker to display  the first character in the array and then configure the rest of the views
-       
+        self.smallestLabel2.text = characterArraySortedByHeight.last?.name
+        self.largestLabel2.text = characterArraySortedByHeight.first?.name
     }
     
     func configurePickerViewsFor(character: Character) {
+        getHomeworldFor(character: character)
+        
         //view labels
         makeBornLabel1.text = "Born"
         costHomeLabel1.text = "Home"
@@ -127,6 +156,24 @@ class DetailViewController: UIViewController {
         self.crewHairLabel2.text = character.hairColor
         
         
+    }
+    
+    func getHomeworldFor(character: Character){
+       let network = NetworkController()
+        network.homeWordFor(character: character) { (string, error) in
+            if let error = error {
+                print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                return
+            }
+            
+            guard let homeworld = string else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                return
+            }
+            DispatchQueue.main.async {
+                self.costHomeLabel2.text = homeworld
+            }
+        }
     }
     
 } //end of class

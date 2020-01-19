@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "AFE5580D-5043-4771-A0D8-7169FE7DCE9B"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "93C08440-1261-49C9-9B69-9B0CA07A6282"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "AwakenAPI/View Controllers/DetailViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "updateViewsForCharacters()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "93C08440-1261-49C9-9B69-9B0CA07A6282 - c9f0c09b6bfe74d7"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "AwakenAPI.DetailViewController.updateViewsForCharacters() -&gt; ()"
+                  moduleName = "AwakenAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mrflowers22/Desktop/treehouse/Unit%206/Chapter%206%20test/AwakenAPI/AwakenAPI/View%20Controllers/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "369">
+               </Location>
+               <Location
+                  uuid = "93C08440-1261-49C9-9B69-9B0CA07A6282 - 757c72af212152bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (AwakenAPI.Character, AwakenAPI.Character) -&gt; Swift.Bool in AwakenAPI.DetailViewController.updateViewsForCharacters() -&gt; ()"
+                  moduleName = "AwakenAPI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mrflowers22/Desktop/treehouse/Unit%206/Chapter%206%20test/AwakenAPI/AwakenAPI/View%20Controllers/DetailViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "130"
+                  endingLineNumber = "130"
+                  offsetFromSymbolStart = "87">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
