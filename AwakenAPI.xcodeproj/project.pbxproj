@@ -15,7 +15,8 @@
 		1B20E0D623D11F4000DA4B60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B20E0D423D11F4000DA4B60 /* LaunchScreen.storyboard */; };
 		1B20E0E623D1F94800DA4B60 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B20E0E523D1F94800DA4B60 /* Character.swift */; };
 		1B57FBAB23D5FAA6006186C1 /* StarwarsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B57FBAA23D5FAA6006186C1 /* StarwarsAPI.swift */; };
-		1B57FBAE23D5FDE7006186C1 /* Pageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B57FBAD23D5FDE7006186C1 /* Pageable.swift */; };
+		1B57FBB023D5FF6E006186C1 /* PagedResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B57FBAF23D5FF6E006186C1 /* PagedResponse.swift */; };
+		1B57FBB223D606FC006186C1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B57FBB123D606FC006186C1 /* NetworkManager.swift */; };
 		1BDE184723D22B07007F9E1F /* NetworkController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDE184623D22B07007F9E1F /* NetworkController.swift */; };
 		1BDE184923D231D7007F9E1F /* People.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDE184823D231D7007F9E1F /* People.swift */; };
 		1BDE184B23D23ADC007F9E1F /* Transportation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDE184A23D23ADC007F9E1F /* Transportation.swift */; };
@@ -38,7 +39,8 @@
 		1B20E0D723D11F4000DA4B60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B20E0E523D1F94800DA4B60 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		1B57FBAA23D5FAA6006186C1 /* StarwarsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarwarsAPI.swift; sourceTree = "<group>"; };
-		1B57FBAD23D5FDE7006186C1 /* Pageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pageable.swift; sourceTree = "<group>"; };
+		1B57FBAF23D5FF6E006186C1 /* PagedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagedResponse.swift; sourceTree = "<group>"; };
+		1B57FBB123D606FC006186C1 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		1BDE184623D22B07007F9E1F /* NetworkController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkController.swift; sourceTree = "<group>"; };
 		1BDE184823D231D7007F9E1F /* People.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = People.swift; sourceTree = "<group>"; };
 		1BDE184A23D23ADC007F9E1F /* Transportation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transportation.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				1BDE184E23D28152007F9E1F /* Starship.swift */,
 				1BDE185023D281A8007F9E1F /* Aircraft.swift */,
 				1BDE185E23D50BBF007F9E1F /* Homeworld.swift */,
+				1B57FBAF23D5FF6E006186C1 /* PagedResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -169,8 +172,8 @@
 		1B57FBAC23D5FDD5006186C1 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				1B57FBAD23D5FDE7006186C1 /* Pageable.swift */,
 				1B57FBAA23D5FAA6006186C1 /* StarwarsAPI.swift */,
+				1B57FBB123D606FC006186C1 /* NetworkManager.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -250,16 +253,17 @@
 				1BDE185323D28949007F9E1F /* HomeTableViewController.swift in Sources */,
 				1BDE184D23D23AF2007F9E1F /* Vehicle.swift in Sources */,
 				1BDE185D23D37D2E007F9E1F /* DetailViewController.swift in Sources */,
+				1B57FBB223D606FC006186C1 /* NetworkManager.swift in Sources */,
 				1BDE184723D22B07007F9E1F /* NetworkController.swift in Sources */,
 				1B20E0CE23D11F3F00DA4B60 /* ViewController.swift in Sources */,
 				1B20E0CA23D11F3F00DA4B60 /* AppDelegate.swift in Sources */,
 				1B20E0CC23D11F3F00DA4B60 /* SceneDelegate.swift in Sources */,
 				1BDE184923D231D7007F9E1F /* People.swift in Sources */,
-				1B57FBAE23D5FDE7006186C1 /* Pageable.swift in Sources */,
 				1BDE185123D281A8007F9E1F /* Aircraft.swift in Sources */,
 				1BDE185F23D50BBF007F9E1F /* Homeworld.swift in Sources */,
 				1B20E0E623D1F94800DA4B60 /* Character.swift in Sources */,
 				1BDE184B23D23ADC007F9E1F /* Transportation.swift in Sources */,
+				1B57FBB023D5FF6E006186C1 /* PagedResponse.swift in Sources */,
 				1B57FBAB23D5FAA6006186C1 /* StarwarsAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,45 +11,9 @@ import UIKit
 class DetailViewController: UIViewController {
     
     //MARK: - Class Properties
-    var characters: [Character]? {
-        didSet {
-            DispatchQueue.main.async {
-                self.title = "Characters"
-                self.updateViewsForCharacters()
-            }
-//            if let passedInCharacters = characters {
-//                for character in passedInCharacters {
-//                    print("Character name: \(character.name)")
-//                }
-//            }
-        }
-    }
     
-    var vehicles: [Vehicle]? {
-        didSet {
-            DispatchQueue.main.async {
-                self.title = "Vehicles"
-            }
-            if let passedInVehicles = vehicles {
-                for vehicle in passedInVehicles {
-                    print("Vehicles name: \(vehicle.name)")
-                }
-            }
-        }
-    }
-    
-    var starships: [Starship]? {
-        didSet {
-            DispatchQueue.main.async {
-                self.title = "Starships"
-            }
-            if let passedInStarships = starships {
-                for starship in passedInStarships {
-                    print("Starship's name: \(starship.name)")
-                }
-            }
-        }
-    }
+    var selectedType: HomeTableViewController.SelectedType?
+    var starwarsAPI: [StarwarsAPI]? //passing in the array of the concrete type
     
     //MARK: - IBOutlets
     @IBOutlet weak var picker: UIPickerView!
@@ -82,7 +46,32 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         picker.delegate = self
         picker.dataSource = self
-        updateViewsForCharacters()
+//        updateViewsForCharacters()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //switch over selected type
+        switch selectedType {
+        case .character:
+            NetworkController<Character>.fetchAllCharacters { (characters, error) in
+                if let error = error {
+                    print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                    return
+                }
+                
+                guard let returnedCharacters = characters else {
+                    print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.starwarsAPI = returnedCharacters
+                    self.configurePickerViewsFor(character: self.starwarsAPI?[0] as! Character)
+                }
+            }
+        default: break
+        }
     }
     
     //MARK: - IBActions
@@ -121,20 +110,21 @@ class DetailViewController: UIViewController {
     }
     
     //MARK: - Class Methods
-    func updateViewsForCharacters(){
-        guard let passedInCharacters = characters, isViewLoaded else {
-            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-            return
-        }
-        
-        let characterArraySortedByHeight =  passedInCharacters.sorted(by: { Int($0.height)! > Int($1.height)! })
-        //we have an array of characters configure the picker to display  the first character in the array and then configure the rest of the views
-        self.smallestLabel2.text = characterArraySortedByHeight.last?.name
-        self.largestLabel2.text = characterArraySortedByHeight.first?.name
-    }
+//    func updateViewsForCharacters(){
+//        guard let passedInCharacters = characters, isViewLoaded else {
+//            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+//            return
+//        }
+//
+//        let characterArraySortedByHeight =  passedInCharacters.sorted(by: { Int($0.height)! > Int($1.height)! })
+//        //we have an array of characters configure the picker to display  the first character in the array and then configure the rest of the views
+//        self.smallestLabel2.text = characterArraySortedByHeight.last?.name
+//        self.largestLabel2.text = characterArraySortedByHeight.first?.name
+//    }
     
     func configurePickerViewsFor(character: Character) {
-        getHomeworldFor(character: character)
+//        getHomeworldFor(character: character)
+        picker.reloadAllComponents()
         
         //view labels
         makeBornLabel1.text = "Born"
@@ -158,23 +148,23 @@ class DetailViewController: UIViewController {
         
     }
     
-    func getHomeworldFor(character: Character){
-       let network = NetworkController()
-        network.homeWordFor(character: character) { (string, error) in
-            if let error = error {
-                print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
-                return
-            }
-            
-            guard let homeworld = string else {
-                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                return
-            }
-            DispatchQueue.main.async {
-                self.costHomeLabel2.text = homeworld
-            }
-        }
-    }
+//    func getHomeworldFor(character: Character){
+//       let network = NetworkController()
+//        network.homeWordFor(character: character) { (string, error) in
+//            if let error = error {
+//                print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+//                return
+//            }
+//
+//            guard let homeworld = string else {
+//                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                self.costHomeLabel2.text = homeworld
+//            }
+//        }
+//    }
     
 } //end of class
 
@@ -184,7 +174,7 @@ extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if let charactersCount = characters {
+        if let charactersCount = starwarsAPI {
             return charactersCount.count
         } else {
             return 10
@@ -192,7 +182,7 @@ extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if let characters = characters {
+        if let characters = starwarsAPI {
             let charactersName = characters[row]
             return charactersName.name
         } else {
@@ -201,8 +191,12 @@ extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if let character = characters?[row] {
-            self.configurePickerViewsFor(character: character)
+        if let starwarsAPI = starwarsAPI?[row] {
+            switch starwarsAPI {
+            case is Character:
+                self.configurePickerViewsFor(character: starwarsAPI as! Character)
+            default: break
+            }
         } else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
         }
