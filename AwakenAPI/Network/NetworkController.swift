@@ -14,16 +14,17 @@ struct Constants {
     static let vehicles = "vehicles"
     static let starships = "starships"
 }
-class NetworkController {
+//Generic Constraint: This allows us to
+class NetworkController<T: StarwarsAPI> {
     
     private let baseURL = URL(string: "https://swapi.co/api/")!
     
     //we will need to fetch all characters to populate the picker on the view
     ///This function will return all characters
-    func fetchAllCharacters(completion: @escaping ([Character]?, Error?) -> Void) {
+    func fetchAllCharacters(completion: @escaping ([T]?, Error?) -> Void) {
         
         //construct the url to send in the request
-        let url =  baseURL.appendingPathComponent(Constants.people)
+        let url =  T.path
         print("This is the url for fetching all the characters: \(url.description)")
         
         //because we are only GET-ing we don't  need to construct a urlRequest.
@@ -51,7 +52,8 @@ class NetworkController {
             decoder.keyDecodingStrategy =  .convertFromSnakeCase
             
             do {
-                let arrayOfCharacters  =  try decoder.decode(People.self, from: data).results
+                //pageable protocol has the results property in it that we need to drill down in the api
+                let arrayOfCharacters  =  try decoder.decode(Pageable.self, from: data).results
                 
                 completion(arrayOfCharacters, nil)
             } catch  {
