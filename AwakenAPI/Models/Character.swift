@@ -8,7 +8,9 @@
 
 import Foundation
 
-struct Character: Codable {
+struct Character: StarwarsAPI {
+    var films: [URL]
+    var url: URL
     let name: String
     let height: String
     
@@ -17,10 +19,15 @@ struct Character: Codable {
      
      -- We dont have to use a customized init decoder method for snake_case if we make the decoder keyDecodingStrategy =  .convertFromSnakeCase
      */
+    
     let homeworld: URL
     let birthYear: String
     let eyeColor: String
     let hairColor: String
+    
+    static var path: URL {
+        return URL(string: "https://swapi.co/api/people")!
+    }
 }
 
 

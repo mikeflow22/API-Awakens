@@ -66,7 +66,6 @@ class HomeTableViewController: UITableViewController {
             }
         }
         
-        
         if segue.identifier == "vehiclesSegue" {
                   guard let destVC = segue.destination  as? DetailViewController else {
                       return
@@ -105,9 +104,6 @@ class HomeTableViewController: UITableViewController {
                 
             }
         }
-        
-        
-        
         
     }
     

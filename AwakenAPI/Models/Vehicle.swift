@@ -8,11 +8,17 @@
 
 import Foundation
 
-struct Vehicle: Codable {
+struct Vehicle: StarwarsAPI {
+    var films: [URL]
+    var url: URL
     let name:  String
     let model: String
     let costInCredits: String
     let length: String
     let vehicleClass: String
     let crew: String
+    
+    static var path: URL {
+        return URL(string: "https://swapi.co/api/vehicles")!
+    }
 }
