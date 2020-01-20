@@ -12,9 +12,9 @@ class DetailViewController: UIViewController {
     
     //MARK: - Class Properties
     
-    var selectedType: HomeTableViewController.SelectedType? //this is to switch on the selected type for the segue
-    var starwarsAPI: [StarwarsEntity]? //passing in the array of the concrete type this is to switch  on the concrete type
-    var currentModel: StarwarsEntity?
+    var selectedType: HomeTableViewController.SelectedEntity? //this is to switch on the selected type for the segue
+    var starwarsEntity: [StarwarsEntity]? //passing in the array of the concrete type this is to switch  on the concrete type
+    var currentEntity: StarwarsEntity?
     
     //MARK: - IBOutlets
     @IBOutlet weak var picker: UIPickerView!
@@ -87,9 +87,9 @@ class DetailViewController: UIViewController {
         self.metricProperties.setTitleColor(.gray, for: .normal)
         self.englishProperties.setTitleColor(.blue, for: .normal)
         
-         switch currentModel {
+         switch currentEntity {
               case is Character:
-                  self.lenghtHeightLabel2.text = (currentModel as! Character).heightConversion
+                  self.lenghtHeightLabel2.text = (currentEntity as! Character).heightConversion
               default: break
               }
     }
@@ -98,9 +98,9 @@ class DetailViewController: UIViewController {
         self.englishProperties.setTitleColor(.gray, for: .normal)
         self.metricProperties.setTitleColor(.blue, for: .normal)
 
-        switch currentModel {
+        switch currentEntity {
         case is Character:
-            self.lenghtHeightLabel2.text = (currentModel as! Character).height
+            self.lenghtHeightLabel2.text = (currentEntity as! Character).height
         default: break
         }
     }

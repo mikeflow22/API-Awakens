@@ -10,7 +10,7 @@ import UIKit
 
 class HomeTableViewController: UITableViewController {
     
-    enum SelectedType {
+    enum SelectedEntity {
         case character
         case vehicle
         case starship
