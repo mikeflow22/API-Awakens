@@ -13,8 +13,8 @@ class DetailViewController: UIViewController {
     //MARK: - Class Properties
     
     var selectedType: HomeTableViewController.SelectedType? //this is to switch on the selected type for the segue
-    var starwarsAPI: [StarwarsAPI]? //passing in the array of the concrete type this is to switch  on the concrete type
-    var currentModel: StarwarsAPI?
+    var starwarsAPI: [StarwarsEntity]? //passing in the array of the concrete type this is to switch  on the concrete type
+    var currentModel: StarwarsEntity?
     
     //MARK: - IBOutlets
     @IBOutlet weak var picker: UIPickerView!

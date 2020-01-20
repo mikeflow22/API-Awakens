@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Vehicle: StarwarsAPI {
+struct Vehicle: StarwarsEntity {
     var films: [URL]
     var url: URL
     let name:  String

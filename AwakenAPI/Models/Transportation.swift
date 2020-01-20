@@ -8,6 +8,6 @@
 
 import Foundation
 
-struct Transportation: Codable {
-    let results: [Vehicle]
-}
+//struct Transportation: Codable {
+//    let results: [Vehicle]
+//}

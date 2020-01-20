@@ -15,7 +15,7 @@ struct Constants {
     static let starships = "starships"
 }
 //Generic Constraint: This allows us to
-class NetworkController<T: StarwarsAPI> {
+class NetworkController<T: StarwarsEntity> {
     
     //we will need to fetch all characters to populate the picker on the view
     ///This function will return all characters
