@@ -8,6 +8,7 @@
 
 import Foundation
 
+//This model type is a wrapper for the homeworld fetch function on the character
 struct HomeworldManager {
     
     static func fetchHomeworldForCharacter(_ character: Character, completion: @escaping (Result<Homeworld, Error>)-> Void) {
@@ -15,6 +16,7 @@ struct HomeworldManager {
             if let data = try? result.get() {
                 let decoder = JSONDecoder()
                 do {
+                    //because homeworld is a struct that contains property name  which matches the name key in the json dictionary
                     let homeworld = try decoder.decode(Homeworld.self, from: data)
                     completion(.success(homeworld))
                 } catch  {

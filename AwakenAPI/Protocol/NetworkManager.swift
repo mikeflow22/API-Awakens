@@ -8,10 +8,11 @@
 
 import Foundation
 
-//urlsession wrapper
+//urlsession wrapper - making this a struct so we don't have to initialize an instance of networkController just to make a network call everytime we want to make a network call
 struct NetworkManager {
     private static let session = URLSession(configuration: .default)
     
+    //result is apple's thing, this way we dont have to pass in nil
     static func fetch(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         let request = URLRequest(url: url)
         

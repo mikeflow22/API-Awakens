@@ -8,9 +8,9 @@
 
 import Foundation
 
+//All conctrete types share the same properties, the url and path help construct the url for the network call
 protocol StarwarsAPI: Codable {
     var name: String { get }
-    var films: [URL] { get }
     var url:  URL { get }
     static var path: String { get }
 }
