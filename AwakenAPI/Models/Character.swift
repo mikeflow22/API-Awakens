@@ -13,20 +13,20 @@ struct Character: StarwarsAPI {
     var url: URL
     let name: String
     let height: String
-    
-    /*
-     The following are representations of snake_case on the api. Here we have to be sure to capitalize the word after the "_" so that the compiler will know its the begining of the second word.
-     
-     -- We dont have to use a customized init decoder method for snake_case if we make the decoder keyDecodingStrategy =  .convertFromSnakeCase
-     */
-    
     let homeworld: URL
     let birthYear: String
     let eyeColor: String
     let hairColor: String
     
-    static var path: URL {
-        return URL(string: "https://swapi.co/api/people")!
+    var heightConversion: String {
+        if let heightDouble = Double(height)  {
+            return String(heightDouble / 2.54 )
+        }
+        return height
+    }
+    
+    static var path: String {
+        return "people"
     }
 }
 

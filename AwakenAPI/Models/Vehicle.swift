@@ -18,7 +18,7 @@ struct Vehicle: StarwarsAPI {
     let vehicleClass: String
     let crew: String
     
-    static var path: URL {
-        return URL(string: "https://swapi.co/api/vehicles")!
+    static var path: String {
+        return "vehicles"
     }
 }

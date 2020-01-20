@@ -12,8 +12,9 @@ class DetailViewController: UIViewController {
     
     //MARK: - Class Properties
     
-    var selectedType: HomeTableViewController.SelectedType?
-    var starwarsAPI: [StarwarsAPI]? //passing in the array of the concrete type
+    var selectedType: HomeTableViewController.SelectedType? //this is to switch on the selected type for the segue
+    var starwarsAPI: [StarwarsAPI]? //passing in the array of the concrete type this is to switch  on the concrete type
+    var currentModel: StarwarsAPI?
     
     //MARK: - IBOutlets
     @IBOutlet weak var picker: UIPickerView!
@@ -68,6 +69,7 @@ class DetailViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.starwarsAPI = returnedCharacters
                     self.configurePickerViewsFor(character: self.starwarsAPI?[0] as! Character)
+                    self.picker.selectRow(0, inComponent: 0, animated: true)
                 }
             }
         default: break
@@ -85,28 +87,22 @@ class DetailViewController: UIViewController {
         self.metricProperties.setTitleColor(.gray, for: .normal)
         self.englishProperties.setTitleColor(.blue, for: .normal)
         
-        guard let height = lenghtHeightLabel2.text, !height.isEmpty, let heightDouble = Double(height) else {
-            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-            return
-        }
-        var inches = heightDouble / 12.0
-//        inches.rounded(.toNearestOrAwayFromZero)
-        lenghtHeightLabel2.text = "\(inches.rounded(.toNearestOrAwayFromZero)) ft."
+         switch currentModel {
+              case is Character:
+                  self.lenghtHeightLabel2.text = (currentModel as! Character).heightConversion
+              default: break
+              }
     }
-    
-   
     
     @IBAction func convertToMetricButtonTapped(_ sender: UIButton) {
         self.englishProperties.setTitleColor(.gray, for: .normal)
         self.metricProperties.setTitleColor(.blue, for: .normal)
-              guard let height = lenghtHeightLabel2.text, !height.isEmpty, let heightDouble = Double(height) else {
-                  print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                  return
-              }
-        
-        var meters = heightDouble * 0.0254
-        lenghtHeightLabel2.text =  "\(meters.rounded())m"
-        
+
+        switch currentModel {
+        case is Character:
+            self.lenghtHeightLabel2.text = (currentModel as! Character).height
+        default: break
+        }
     }
     
     //MARK: - Class Methods
@@ -123,7 +119,7 @@ class DetailViewController: UIViewController {
 //    }
     
     func configurePickerViewsFor(character: Character) {
-//        getHomeworldFor(character: character)
+        getHomeworldFor(character: character)
         picker.reloadAllComponents()
         
         //view labels
@@ -140,31 +136,25 @@ class DetailViewController: UIViewController {
         //character's information
         self.nameLabel1.text = character.name
         self.makeBornLabel2.text = character.birthYear
-        self.costHomeLabel2.text = character.homeworld.absoluteString
         self.lenghtHeightLabel2.text = character.height
         self.classEyesLabel2.text = character.eyeColor
         self.crewHairLabel2.text = character.hairColor
         
-        
     }
     
-//    func getHomeworldFor(character: Character){
-//       let network = NetworkController()
-//        network.homeWordFor(character: character) { (string, error) in
-//            if let error = error {
-//                print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
-//                return
-//            }
-//
-//            guard let homeworld = string else {
-//                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-//                return
-//            }
-//            DispatchQueue.main.async {
-//                self.costHomeLabel2.text = homeworld
-//            }
-//        }
-//    }
+    func getHomeworldFor(character: Character){
+        self.costHomeLabel2.text = "loading..."
+        
+        HomeworldManager.fetchHomeworldForCharacter(character) { (result) in
+            if let homeworld = try? result.get() {
+                DispatchQueue.main.async {
+                    self.costHomeLabel2.text = homeworld.name
+                }
+            } else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            }
+        }
+    }
     
 } //end of class
 
@@ -194,6 +184,7 @@ extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
         if let starwarsAPI = starwarsAPI?[row] {
             switch starwarsAPI {
             case is Character:
+                self.currentModel = starwarsAPI
                 self.configurePickerViewsFor(character: starwarsAPI as! Character)
             default: break
             }

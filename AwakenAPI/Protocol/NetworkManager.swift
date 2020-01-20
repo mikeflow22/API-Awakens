@@ -12,14 +12,14 @@ import Foundation
 struct NetworkManager {
     private static let session = URLSession(configuration: .default)
     
-    static func fetch(endpoint: URL, completion: @escaping (Result<Data, Error>) -> Void) {
-        fetch(url: endpoint, completion: completion)
-    }
-    
     static func fetch(url: URL, completion: @escaping (Result<Data, Error>) -> Void) {
         let request = URLRequest(url: url)
         
-        let task = session.dataTask(with: request) { data, response, error in
+        fetch(urlRequest: request, completion: completion)
+    }
+    
+    static func fetch(urlRequest: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) {
+        let task = session.dataTask(with: urlRequest) { data, response, error in
             if let error = error {
                 completion(.failure(error))
             } else if let data = data {

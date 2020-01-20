@@ -18,7 +18,7 @@ struct Starship: StarwarsAPI {
     let starshipClass: String
     let crew: String
     
-    static var path: URL {
-        return URL(string: "https://swapi.co/api/starships")!
+    static var path: String {
+        return "starships"
     }
 }

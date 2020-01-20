@@ -12,5 +12,5 @@ protocol StarwarsAPI: Codable {
     var name: String { get }
     var films: [URL] { get }
     var url:  URL { get }
-    static var path: URL { get }
+    static var path: String { get }
 }
