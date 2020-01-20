@@ -17,11 +17,11 @@ class DetailViewController: UIViewController {
                 self.title = "Characters"
                 self.updateViewsForCharacters()
             }
-            if let passedInCharacters = characters {
-                for character in passedInCharacters {
-                    print("Character name: \(character.name)")
-                }
-            }
+//            if let passedInCharacters = characters {
+//                for character in passedInCharacters {
+//                    print("Character name: \(character.name)")
+//                }
+//            }
         }
     }
     
