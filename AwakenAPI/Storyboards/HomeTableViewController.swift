@@ -30,14 +30,14 @@ class HomeTableViewController: UITableViewController {
             guard let destVC = segue.destination  as? DetailViewController else {
                 return
             }
-            destVC.selectedType = .character
+            destVC.selectedEntity = .character
         }
         
         if segue.identifier == "vehiclesSegue" {
             guard let destVC = segue.destination  as? DetailViewController else {
                 return
             }
-            destVC.selectedType = .vehicle
+            destVC.selectedEntity = .vehicle
             
         }
         
@@ -46,7 +46,7 @@ class HomeTableViewController: UITableViewController {
             guard let destVC = segue.destination  as? DetailViewController else {
                 return
             }
-            destVC.selectedType = .starship
+            destVC.selectedEntity = .starship
         }
         
 }

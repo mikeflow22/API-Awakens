@@ -10,9 +10,9 @@ import Foundation
 
 //This model conforms to StarwarsAPI (and so does our concrete model types - which allows access the keys in each models json dictionary on the api)
 //so people:  let results [Character]. This allows us to get to the results
-struct PagedResponse<T: StarwarsEntity>: Codable {
-    let count: Int
-    let next: URL?
-    let previous: URL?
+struct TopLevelDictionary<T: StarwarsEntity>: Codable {
+//    let count: Int
+//    let next: URL?
+//    let previous: URL?
     let results: [T]
 }

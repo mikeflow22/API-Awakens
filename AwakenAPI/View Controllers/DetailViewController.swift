@@ -12,7 +12,7 @@ class DetailViewController: UIViewController {
     
     //MARK: - Class Properties
     
-    var selectedType: HomeTableViewController.SelectedEntity? //this is to switch on the selected type for the segue
+    var selectedEntity: HomeTableViewController.SelectedEntity? //this is to switch on the selected type for the segue
     var starwarsEntity: [StarwarsEntity]? //passing in the array of the concrete type this is to switch  on the concrete type
     var currentEntity: StarwarsEntity?
     
@@ -40,22 +40,21 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var creditProperties: UIButton!
     @IBOutlet weak var englishProperties: UIButton!
     @IBOutlet weak var metricProperties: UIButton!
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         picker.delegate = self
         picker.dataSource = self
-//        updateViewsForCharacters()
+        //        updateViewsForCharacters()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //switch over selected type
-        switch selectedType {
+        switch selectedEntity {
         case .character:
-            NetworkController<Character>.fetchAllCharacters { (characters, error) in
+            NetworkController<Character>.fetchAllEntity { (characters, error) in
                 if let error = error {
                     print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
                     return
@@ -67,9 +66,12 @@ class DetailViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
-                    self.starwarsAPI = returnedCharacters
-                    self.configurePickerViewsFor(character: self.starwarsAPI?[0] as! Character)
+                    self.starwarsEntity = returnedCharacters
+                    self.configurePickerViewsFor(character: self.starwarsEntity?[0] as! Character)
                     self.picker.selectRow(0, inComponent: 0, animated: true)
+                    let characterArraySortedByHeight =  returnedCharacters.sorted(by: { Int($0.height)! > Int($1.height)! })
+                    self.smallestLabel2.text = characterArraySortedByHeight.last?.name
+                    self.largestLabel2.text = characterArraySortedByHeight.first?.name
                 }
             }
         default: break
@@ -87,17 +89,17 @@ class DetailViewController: UIViewController {
         self.metricProperties.setTitleColor(.gray, for: .normal)
         self.englishProperties.setTitleColor(.blue, for: .normal)
         
-         switch currentEntity {
-              case is Character:
-                  self.lenghtHeightLabel2.text = (currentEntity as! Character).heightConversion
-              default: break
-              }
+        switch currentEntity {
+        case is Character:
+            self.lenghtHeightLabel2.text = (currentEntity as! Character).heightConversion
+        default: break
+        }
     }
     
     @IBAction func convertToMetricButtonTapped(_ sender: UIButton) {
         self.englishProperties.setTitleColor(.gray, for: .normal)
         self.metricProperties.setTitleColor(.blue, for: .normal)
-
+        
         switch currentEntity {
         case is Character:
             self.lenghtHeightLabel2.text = (currentEntity as! Character).height
@@ -106,20 +108,21 @@ class DetailViewController: UIViewController {
     }
     
     //MARK: - Class Methods
-//    func updateViewsForCharacters(){
-//        guard let passedInCharacters = characters, isViewLoaded else {
-//            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-//            return
-//        }
-//
-//        let characterArraySortedByHeight =  passedInCharacters.sorted(by: { Int($0.height)! > Int($1.height)! })
-//        //we have an array of characters configure the picker to display  the first character in the array and then configure the rest of the views
-//        self.smallestLabel2.text = characterArraySortedByHeight.last?.name
-//        self.largestLabel2.text = characterArraySortedByHeight.first?.name
-//    }
+    //    func updateViewsForCharacters(){
+    //        guard let passedInCharacters = characters, isViewLoaded else {
+    //            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+    //            return
+    //        }
+    //
+    //        let characterArraySortedByHeight =  passedInCharacters.sorted(by: { Int($0.height)! > Int($1.height)! })
+    //        //we have an array of characters configure the picker to display  the first character in the array and then configure the rest of the views
+    //        self.smallestLabel2.text = characterArraySortedByHeight.last?.name
+    //        self.largestLabel2.text = characterArraySortedByHeight.first?.name
+    //    }
     
     func configurePickerViewsFor(character: Character) {
         getHomeworldFor(character: character)
+        
         picker.reloadAllComponents()
         
         //view labels
@@ -160,40 +163,37 @@ class DetailViewController: UIViewController {
 
 extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-       return 1
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if let charactersCount = starwarsAPI {
-            return charactersCount.count
+        if let entityCount = starwarsEntity {
+            return entityCount.count
         } else {
             return 10
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if let characters = starwarsAPI {
-            let charactersName = characters[row]
-            return charactersName.name
+        if let entities = starwarsEntity {
+            let entitysName = entities[row]
+            return entitysName.name
         } else {
-            return "IDK"
+            return ""
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if let starwarsAPI = starwarsAPI?[row] {
-            switch starwarsAPI {
+        if let entity = starwarsEntity?[row] {
+            switch starwarsEntity {
             case is Character:
-                self.currentModel = starwarsAPI
-                self.configurePickerViewsFor(character: starwarsAPI as! Character)
+                self.currentEntity = entity
+                self.configurePickerViewsFor(character: entity as! Character)
             default: break
             }
         } else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
         }
-        
-//        self.nameLabel1.text = characters?[row].name
-        
     }
     
 }
