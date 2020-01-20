@@ -121,7 +121,7 @@ class DetailViewController: UIViewController {
                 DispatchQueue.main.async {
                     //assign returnedVehicles to our entity placeholder so it can be accessed throughout the file
                     self.starwarsEntity = returnedVStarships
-                    
+                    self.currentEntity = self.starwarsEntity?[0] as! Starship
                     //views will match the picker and show the first element in th array.
                     self.configureViewsForEntity(self.starwarsEntity?[0] as! Starship)
                     
@@ -215,31 +215,57 @@ class DetailViewController: UIViewController {
         usdProperties.isHidden = false
         creditProperties.isHidden = false
         
-        switch entity {
-        case is Vehicle:
-            if let currentEntity = currentEntity as? Vehicle {
-                self.nameLabel1.text = currentEntity.name
-                self.costHomeLabel2.text = currentEntity.costInCredits
-                self.makeBornLabel2.text = currentEntity.model
-                self.lenghtHeightLabel2.text = currentEntity.length
-                self.classEyesLabel2.text = currentEntity.vehicleClass
-                self.crewHairLabel2.text = currentEntity.crew
-            } else {
-                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-                return
-            }
-        case is Starship:
-            self.nameLabel1.text = (currentEntity as! Starship).name
-            self.costHomeLabel2.text = (currentEntity as! Starship).costInCredits
-            self.makeBornLabel2.text = (currentEntity as! Starship).model
-            self.lenghtHeightLabel2.text = (currentEntity as! Starship).length
-            self.classEyesLabel2.text = (currentEntity as! Starship).starshipClass
-            self.crewHairLabel2.text = (currentEntity as! Starship).crew
-        default:
+        //MARK: - QUESTION Why does this work but not the switch statement below
+        //doing the following populates the views on the first try without changing the pickerView
+        if let vehicle = entity as? Vehicle {
+            self.nameLabel1.text = vehicle.name
+            self.costHomeLabel2.text = vehicle.costInCredits
+            self.makeBornLabel2.text = vehicle.model
+            self.lenghtHeightLabel2.text = vehicle.length
+            self.classEyesLabel2.text = vehicle.vehicleClass
+            self.crewHairLabel2.text = vehicle.crew
+        } else if let starship = entity as? Starship {
+            self.nameLabel1.text = starship.name
+            self.costHomeLabel2.text = starship.costInCredits
+            self.makeBornLabel2.text = starship.model
+            self.lenghtHeightLabel2.text = starship.length
+            self.classEyesLabel2.text = starship.starshipClass
+            self.crewHairLabel2.text = starship.crew
+        } else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-            break
         }
         
+        //the following doesnt populate the views on the first try. I have to change the pickerView
+//        switch entity {
+//            //use is to pattern match against type name
+//        case  is Vehicle:
+//            if let currentEntity = currentEntity as? Vehicle {
+//                self.nameLabel1.text = currentEntity.name
+//                self.costHomeLabel2.text = currentEntity.costInCredits
+//                self.makeBornLabel2.text = currentEntity.model
+//                self.lenghtHeightLabel2.text = currentEntity.length
+//                self.classEyesLabel2.text = currentEntity.vehicleClass
+//                self.crewHairLabel2.text = currentEntity.crew
+//            } else {
+//                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+//                return
+//            }
+//        case is Starship:
+//            if let currentEntity = currentEntity as? Starship {
+//                self.nameLabel1.text = currentEntity.name
+//                self.costHomeLabel2.text = currentEntity.costInCredits
+//                self.makeBornLabel2.text = currentEntity.model
+//                self.lenghtHeightLabel2.text = currentEntity.length
+//                self.classEyesLabel2.text = currentEntity.starshipClass
+//                self.crewHairLabel2.text = currentEntity.crew
+//            } else {
+//                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+//                return
+//            }
+//        default:
+//            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+//            break
+//        }
     }
     
     func getHomeworldFor(character: Character){
@@ -264,32 +290,26 @@ extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if let entityCount = starwarsEntity {
-            return entityCount.count
-        } else {
-            return 10
-        }
+        return starwarsEntity?.count ??  10
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if let entities = starwarsEntity {
-            let entitysName = entities[row]
-            return entitysName.name
-        } else {
-            return ""
-        }
+        return starwarsEntity?[row].name ?? ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if let entity = starwarsEntity?[row] {
-            switch entity {
+        if let entityInRow = starwarsEntity?[row] {
+            switch entityInRow {
             case is Character:
                 //we want to assign our placeholder for currentEntity to match the one selected for the picker
-                self.currentEntity = entity
-                self.configureViewsForCharacter(entity as! Character)
+                self.currentEntity = entityInRow
+                self.configureViewsForCharacter(entityInRow as! Character)
             case is Vehicle:
-                self.currentEntity = entity
-                self.configureViewsForEntity(entity as! Vehicle)
+                self.currentEntity = entityInRow
+                self.configureViewsForEntity(entityInRow as! Vehicle)
+            case is Starship:
+                self.currentEntity = entityInRow
+                 self.configureViewsForEntity(entityInRow as! Starship)
             default:
                 print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
                 break
@@ -298,5 +318,4 @@ extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
         }
     }
-    
 }
