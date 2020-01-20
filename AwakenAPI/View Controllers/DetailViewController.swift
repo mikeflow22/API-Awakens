@@ -46,12 +46,11 @@ class DetailViewController: UIViewController {
         
         picker.delegate = self
         picker.dataSource = self
-        //        updateViewsForCharacters()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //switch over selected type
+        //switch over selected Entity
         switch selectedEntity {
         case .character:
             NetworkController<Character>.fetchAllEntity { (characters, error) in
@@ -67,14 +66,82 @@ class DetailViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     self.starwarsEntity = returnedCharacters
-                    self.configurePickerViewsFor(character: self.starwarsEntity?[0] as! Character)
+                    self.configureViewsForCharacter(self.starwarsEntity?[0] as! Character)
                     self.picker.selectRow(0, inComponent: 0, animated: true)
                     let characterArraySortedByHeight =  returnedCharacters.sorted(by: { Int($0.height)! > Int($1.height)! })
                     self.smallestLabel2.text = characterArraySortedByHeight.last?.name
                     self.largestLabel2.text = characterArraySortedByHeight.first?.name
                 }
             }
-        default: break
+        case .vehicle:
+            NetworkController<Vehicle>.fetchAllEntity { (vehicles, error) in
+                if let error = error {
+                    print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                    return
+                }
+                
+                guard let returnedVehicles = vehicles else {
+                    print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    //assign returnedVehicles to our entity placeholder so it can be accessed throughout the file
+                    self.starwarsEntity = returnedVehicles
+                    
+                    //views will match the picker and show the first element in th array.
+                    self.configureViewsForEntity(self.starwarsEntity?[0] as! Vehicle)
+                    
+                    //we want to selecte the first entity in the array to populate the views and the picker
+                    self.picker.selectRow(0, inComponent: 0, animated: true)
+                    
+                    //we want to now update the smallest/largest labels
+                    let entitySortedByLength =  returnedVehicles.sorted(by: { if let length1 = Int($0.length), let length2 = Int($1.length){
+                        return length1 > length2
+                        }
+                        return true
+                    })
+                    
+                    self.smallestLabel2.text = entitySortedByLength.last?.name
+                    self.largestLabel2.text = entitySortedByLength.first?.name
+                }
+            }
+        case .starship:
+            NetworkController<Starship>.fetchAllEntity { (starships, error) in
+                if let error = error {
+                    print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                    return
+                }
+                
+                guard let returnedVStarships = starships else {
+                    print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    //assign returnedVehicles to our entity placeholder so it can be accessed throughout the file
+                    self.starwarsEntity = returnedVStarships
+                    
+                    //views will match the picker and show the first element in th array.
+                    self.configureViewsForEntity(self.starwarsEntity?[0] as! Starship)
+                    
+                    //we want to selecte the first entity in the array to populate the views and the picker
+                    self.picker.selectRow(0, inComponent: 0, animated: true)
+                    
+                    //we want to now update the smallest/largest labels
+                    let entitySortedByLength =  returnedVStarships.sorted(by: { if let length1 = Int($0.length), let length2 = Int($1.length){
+                        return length1 > length2
+                        }
+                        return true
+                    })
+                    
+                    self.smallestLabel2.text = entitySortedByLength.last?.name
+                    self.largestLabel2.text = entitySortedByLength.first?.name
+                }
+            }
+        default:
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            break
         }
     }
     
@@ -108,19 +175,8 @@ class DetailViewController: UIViewController {
     }
     
     //MARK: - Class Methods
-    //    func updateViewsForCharacters(){
-    //        guard let passedInCharacters = characters, isViewLoaded else {
-    //            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
-    //            return
-    //        }
-    //
-    //        let characterArraySortedByHeight =  passedInCharacters.sorted(by: { Int($0.height)! > Int($1.height)! })
-    //        //we have an array of characters configure the picker to display  the first character in the array and then configure the rest of the views
-    //        self.smallestLabel2.text = characterArraySortedByHeight.last?.name
-    //        self.largestLabel2.text = characterArraySortedByHeight.first?.name
-    //    }
     
-    func configurePickerViewsFor(character: Character) {
+    func configureViewsForCharacter(_ character: Character) {
         getHomeworldFor(character: character)
         
         picker.reloadAllComponents()
@@ -142,6 +198,47 @@ class DetailViewController: UIViewController {
         self.lenghtHeightLabel2.text = character.height
         self.classEyesLabel2.text = character.eyeColor
         self.crewHairLabel2.text = character.hairColor
+        
+    }
+    
+    func configureViewsForEntity(_ entity: StarwarsEntity) {
+        picker.reloadAllComponents()
+        
+        //view labels
+        makeBornLabel1.text = "Make"
+        costHomeLabel1.text = "Cost"
+        lengthHeightLabel1.text = "Length"
+        classEyesLabel1.text = "Class"
+        crewHairLabel1.text = "Crew"
+        
+        //view buttons
+        usdProperties.isHidden = false
+        creditProperties.isHidden = false
+        
+        switch entity {
+        case is Vehicle:
+            if let currentEntity = currentEntity as? Vehicle {
+                self.nameLabel1.text = currentEntity.name
+                self.costHomeLabel2.text = currentEntity.costInCredits
+                self.makeBornLabel2.text = currentEntity.model
+                self.lenghtHeightLabel2.text = currentEntity.length
+                self.classEyesLabel2.text = currentEntity.vehicleClass
+                self.crewHairLabel2.text = currentEntity.crew
+            } else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                return
+            }
+        case is Starship:
+            self.nameLabel1.text = (currentEntity as! Starship).name
+            self.costHomeLabel2.text = (currentEntity as! Starship).costInCredits
+            self.makeBornLabel2.text = (currentEntity as! Starship).model
+            self.lenghtHeightLabel2.text = (currentEntity as! Starship).length
+            self.classEyesLabel2.text = (currentEntity as! Starship).starshipClass
+            self.crewHairLabel2.text = (currentEntity as! Starship).crew
+        default:
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            break
+        }
         
     }
     
@@ -185,11 +282,17 @@ extension DetailViewController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let entity = starwarsEntity?[row] {
-            switch starwarsEntity {
+            switch entity {
             case is Character:
+                //we want to assign our placeholder for currentEntity to match the one selected for the picker
                 self.currentEntity = entity
-                self.configurePickerViewsFor(character: entity as! Character)
-            default: break
+                self.configureViewsForCharacter(entity as! Character)
+            case is Vehicle:
+                self.currentEntity = entity
+                self.configureViewsForEntity(entity as! Vehicle)
+            default:
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                break
             }
         } else {
             print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")

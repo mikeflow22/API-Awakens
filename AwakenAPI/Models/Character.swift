@@ -9,8 +9,7 @@
 import Foundation
 
 struct Character: StarwarsEntity {
-    var films: [URL]
-    var url: URL
+    let url: URL
     let name: String
     let height: String
     let homeworld: URL

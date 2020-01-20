@@ -26,12 +26,11 @@ class NetworkController<T: StarwarsEntity> {
         let url = baseURL.appendingPathComponent(T.path)
         print("This is the url for fetching all the \(T.path): \(url.description)")
         
-        //because we are only GET-ing we don't  need to construct a urlRequest.
-        //also because we are not adding any queryItems we dont need to construct a urlComponent object either
-        
         NetworkManager.fetch(url: url) { result in
             switch result {
-            case .failure(let error): print(error)
+            case .failure(let error):
+                print("Error in file: \(#file) in the body of the function: \(#function)\n on line: \(#line)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)\n")
+                
             case .success(let data):
                 
                 //construct a decoder object to parse through the json. we want to get back an array of characters based on how we set up our model
@@ -41,7 +40,6 @@ class NetworkController<T: StarwarsEntity> {
                 do {
                     //TopLevelDictionary struct has the results property in it that we need to drill down in the api
                     let arrayOfEntity = try decoder.decode(TopLevelDictionary<T>.self, from: data).results
-                    
                     completion(arrayOfEntity, nil)
                 } catch  {
                     print("Error in: \(#function)\n Readable Error: \(error.localizedDescription)\n Technical Error: \(error)")

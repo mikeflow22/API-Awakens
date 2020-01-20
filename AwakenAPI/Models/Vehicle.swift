@@ -9,8 +9,7 @@
 import Foundation
 
 struct Vehicle: StarwarsEntity {
-    var films: [URL]
-    var url: URL
+    let url: URL
     let name:  String
     let model: String
     let costInCredits: String
