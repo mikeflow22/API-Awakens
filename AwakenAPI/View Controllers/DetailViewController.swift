@@ -148,7 +148,7 @@ class DetailViewController: UIViewController {
     //MARK: - IBActions
     
     func convertToInches(string: String) -> String {
-        if let number = Double(string)?.rounded() {
+        if let number = Double(string) {
             return String(number * 2.54)
         } else{
             self.presentAlert(message: "Cannot convert to inches")
@@ -157,22 +157,22 @@ class DetailViewController: UIViewController {
     }
     
     func convertToCentimeters(string: String) -> String {
-        if let number = Double(string)?.rounded() {
-            return String(number / 2.54)
+        if let number = Double(string) {
+            return String((number / 2.54).rounded())
         } else {
             self.presentAlert(message: "Cannot convert into Centimeters")
         }
         return string
     }
     
-    func convertToUSD(string: String) -> String {
-        if let number = Double(string)?.rounded() {
-            return String(number / 2.50)
-        } else {
-            self.presentAlert(message: "Cannot convert to USD")
-        }
-        return string
-    }
+//    func convertToUSD(string: String) -> String {
+//        if let number = Double(string) {
+//            return String(number / 2.50)
+//        } else {
+//            self.presentAlert(message: "Cannot convert to USD")
+//        }
+//        return string
+//    }
     
     func converBackToCredit() -> String {
     
@@ -195,9 +195,15 @@ class DetailViewController: UIViewController {
         //AN ALERT IS SUPPOSED TO POP UP AND ALLOW THE USER TO ENTER AN EXCHANGE RATE
         self.creditProperties.setTitleColor(.gray, for: .normal)
         self.usdProperties.setTitleColor(.blue, for: .normal)
-        
-        self.exchangeAlert()
-//        self.costHomeLabel2.text = self.convertToUSD(string: self.costHomeLabel2.text!)
+        guard let costString = self.costHomeLabel2.text, !costString.isEmpty else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            return
+        }
+        if costString == "unknown"{
+            self.presentAlert(message: "Cannot determine conversion becuase it is unknown")
+        } else {
+            self.exchangeAlert()
+        }
     }
     
     @IBAction func convertToCreditsButtonTapped(_ sender: UIButton) {
@@ -285,6 +291,7 @@ class DetailViewController: UIViewController {
         }
         
         let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel) { (_) in
+        
             self.creditProperties.setTitleColor(.blue, for: .normal)
             self.usdProperties.setTitleColor(.gray, for: .normal)
         }
@@ -356,14 +363,14 @@ class DetailViewController: UIViewController {
             self.nameLabel1.text = vehicle.name
             self.costHomeLabel2.text = vehicle.costInCredits
             self.makeBornLabel2.text = vehicle.model
-            self.lenghtHeightLabel2.text = vehicle.length
+            self.lenghtHeightLabel2.text = self.convertToCentimeters(string: vehicle.length)
             self.classEyesLabel2.text = vehicle.vehicleClass
             self.crewHairLabel2.text = vehicle.crew
         } else if let starship = entity as? Starship {
             self.nameLabel1.text = starship.name
             self.costHomeLabel2.text = starship.costInCredits
             self.makeBornLabel2.text = starship.model
-            self.lenghtHeightLabel2.text = starship.length
+             self.lenghtHeightLabel2.text = self.convertToCentimeters(string: starship.length)
             self.classEyesLabel2.text = starship.starshipClass
             self.crewHairLabel2.text = starship.crew
         } else {
