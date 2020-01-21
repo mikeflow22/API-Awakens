@@ -161,11 +161,39 @@ class DetailViewController: UIViewController {
         return string
     }
     
+    func convertToUSD(string: String) -> String {
+        if let number = Double(string) {
+            return String(number / 2.50)
+        }
+        return string
+    }
+    
+    func converBackToCredit() -> String {
+    
+        if let cost = currentEntity as? Vehicle  {
+            return cost.costInCredits
+        }
+        
+        if let cost = currentEntity as? Starship {
+            return cost.costInCredits
+        }
+        
+        return "a lot of money"
+    }
     
     @IBAction func convertToUSDButtonTapped(_ sender: UIButton) {
+        self.creditProperties.setTitleColor(.gray, for: .normal)
+        self.usdProperties.setTitleColor(.blue, for: .normal)
+        
+        self.costHomeLabel2.text = self.convertToUSD(string: self.costHomeLabel2.text!)
     }
     
     @IBAction func convertToCreditsButtonTapped(_ sender: UIButton) {
+        
+        self.creditProperties.setTitleColor(.blue, for: .normal)
+        self.usdProperties.setTitleColor(.gray, for: .normal)
+        
+        self.costHomeLabel2.text = self.converBackToCredit()
     }
     
     @IBAction func convertToEnglishMeasurement(_ sender: UIButton) {
