@@ -148,7 +148,7 @@ class DetailViewController: UIViewController {
     //MARK: - IBActions
     
     func convertToInches(string: String) -> String {
-        if let number = Double(string) {
+        if let number = Double(string)?.rounded() {
             return String(number * 2.54)
         } else{
             self.presentAlert(message: "Cannot convert to inches")
@@ -157,7 +157,7 @@ class DetailViewController: UIViewController {
     }
     
     func convertToCentimeters(string: String) -> String {
-        if let number = Double(string) {
+        if let number = Double(string)?.rounded() {
             return String(number / 2.54)
         } else {
             self.presentAlert(message: "Cannot convert into Centimeters")
@@ -166,7 +166,7 @@ class DetailViewController: UIViewController {
     }
     
     func convertToUSD(string: String) -> String {
-        if let number = Double(string) {
+        if let number = Double(string)?.rounded() {
             return String(number / 2.50)
         } else {
             self.presentAlert(message: "Cannot convert to USD")
@@ -192,10 +192,12 @@ class DetailViewController: UIViewController {
     }
     
     @IBAction func convertToUSDButtonTapped(_ sender: UIButton) {
+        //AN ALERT IS SUPPOSED TO POP UP AND ALLOW THE USER TO ENTER AN EXCHANGE RATE
         self.creditProperties.setTitleColor(.gray, for: .normal)
         self.usdProperties.setTitleColor(.blue, for: .normal)
         
-        self.costHomeLabel2.text = self.convertToUSD(string: self.costHomeLabel2.text!)
+        self.exchangeAlert()
+//        self.costHomeLabel2.text = self.convertToUSD(string: self.costHomeLabel2.text!)
     }
     
     @IBAction func convertToCreditsButtonTapped(_ sender: UIButton) {
@@ -239,6 +241,61 @@ class DetailViewController: UIViewController {
     }
     
     //MARK: - Class Methods
+    
+    func userExchangeRate(numberString: String ) -> String {
+        if let number = Double(numberString) {
+            if number > 0 {
+                return "\(number)"
+            } else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                self.presentAlert(message: "Please enter value greater than 0")
+            }
+        } else {
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            self.presentAlert(message: "Please enter a numeric value")
+        }
+        return "nope"
+    }
+    
+    func exchangeAlert() {
+        var exchangePlaceholder = ""
+        
+        let alert = UIAlertController(title: "Enter in Exhange Rate", message: "Please enter in a numeric value greater than zero", preferredStyle: .alert)
+        alert.addTextField { (alertTextfield) in
+            alertTextfield.placeholder = "EX: 2.0"
+            alertTextfield.keyboardType = .numberPad
+         
+        }
+        
+        let convertAction = UIAlertAction(title: "Convert", style: .default) { (_) in
+            
+            guard let textField = alert.textFields?.first, let exchangeRateString = textField.text, !exchangeRateString.isEmpty else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                self.presentAlert(message: "Please enter a numeric value in the textField")
+                return
+            }
+            exchangePlaceholder = exchangeRateString
+            
+            if let exchangeRate = Double(self.userExchangeRate(numberString: exchangePlaceholder)), let credit = Double(self.costHomeLabel2.text!)  {
+                DispatchQueue.main.async {
+                    self.costHomeLabel2.text = "\(exchangeRate * credit)"
+                }
+            } else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                self.presentAlert(message: "Cannot convert your exchange rate into USD")
+            }
+        }
+        
+        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        
+        alert.addAction(convertAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    
+    }
+    
+    
     func presentAlert(message: String){
         let alert = UIAlertController(title: "No Known Information", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)

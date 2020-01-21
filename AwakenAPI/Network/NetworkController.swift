@@ -14,7 +14,7 @@ struct Constants {
     static let vehicles = "vehicles"
     static let starships = "starships"
 }
-//Generic Constraint: This allows us to
+//Generic Constraint: This allows us to swap out T and replace it with any one of our concrete types
 class NetworkController<T: StarwarsEntity> {
     
     //we will need to fetch all characters to populate the picker on the view
