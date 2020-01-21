@@ -258,7 +258,6 @@ class DetailViewController: UIViewController {
     }
     
     func exchangeAlert() {
-        var exchangePlaceholder = ""
         
         let alert = UIAlertController(title: "Enter in Exhange Rate", message: "Please enter in a numeric value greater than zero", preferredStyle: .alert)
         alert.addTextField { (alertTextfield) in
@@ -274,9 +273,8 @@ class DetailViewController: UIViewController {
                 self.presentAlert(message: "Please enter a numeric value in the textField")
                 return
             }
-            exchangePlaceholder = exchangeRateString
             
-            if let exchangeRate = Double(self.userExchangeRate(numberString: exchangePlaceholder)), let credit = Double(self.costHomeLabel2.text!)  {
+            if let exchangeRate = Double(self.userExchangeRate(numberString: exchangeRateString)), let credit = Double(self.costHomeLabel2.text!)  {
                 DispatchQueue.main.async {
                     self.costHomeLabel2.text = "\(exchangeRate * credit)"
                 }
@@ -286,7 +284,10 @@ class DetailViewController: UIViewController {
             }
         }
         
-        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "CANCEL", style: .cancel) { (_) in
+            self.creditProperties.setTitleColor(.blue, for: .normal)
+            self.usdProperties.setTitleColor(.gray, for: .normal)
+        }
         
         alert.addAction(convertAction)
         alert.addAction(cancelAction)
@@ -294,7 +295,6 @@ class DetailViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     
     }
-    
     
     func presentAlert(message: String){
         let alert = UIAlertController(title: "No Known Information", message: message, preferredStyle: .alert)
