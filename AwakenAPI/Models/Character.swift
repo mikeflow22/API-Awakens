@@ -17,13 +17,6 @@ struct Character: StarwarsEntity {
     let eyeColor: String
     let hairColor: String
     
-    var heightConversion: String {
-        if let heightDouble = Double(height)  {
-            return String(heightDouble / 2.54 )
-        }
-        return height
-    }
-    
     static var path: String {
         return "people"
     }

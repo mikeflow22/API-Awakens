@@ -146,7 +146,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ONq-Lc-kf9">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="ONq-Lc-kf9" userLabel="Master Stack View">
                                 <rect key="frame" x="16" y="146" width="382" height="260"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="OWc-F6-QEV" userLabel="MakeStackView">
@@ -170,7 +170,7 @@
                                             <constraint firstAttribute="height" constant="40" id="6Iv-0y-4J1"/>
                                         </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="LBI-Us-lrP">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="LBI-Us-lrP" userLabel="Cost/Home Top Stack View">
                                         <rect key="frame" x="0.0" y="55" width="320" height="40"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="uNA-ro-60J" userLabel="Cost/Home StackView">
@@ -216,7 +216,7 @@
                                             </stackView>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="0Jk-kT-jr4">
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="23" translatesAutoresizingMaskIntoConstraints="NO" id="0Jk-kT-jr4" userLabel="Length/Height Top Stack View">
                                         <rect key="frame" x="0.0" y="110" width="332.5" height="40"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="Awo-uM-7ek" userLabel="Lenght/heightStackView">
@@ -240,7 +240,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="mPN-RX-XKg"/>
                                                 </constraints>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-m9-8Q9" userLabel="Lenght/height Stack View">
+                                            <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="749" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="TKB-m9-8Q9" userLabel="Lenght/height Stack View">
                                                 <rect key="frame" x="208.5" y="0.0" width="124" height="40"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZKK-Du-kNU">
@@ -308,12 +308,14 @@
                                         </constraints>
                                     </stackView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="260" id="zE2-G2-5XM"/>
                                 </constraints>
                             </stackView>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="utA-fn-Jzr">
                                 <rect key="frame" x="47" y="470" width="320" height="216"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </pickerView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Wue-ge-LJW">
                                 <rect key="frame" x="118.5" y="694" width="177.5" height="49"/>
