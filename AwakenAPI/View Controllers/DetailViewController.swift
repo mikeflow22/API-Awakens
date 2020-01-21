@@ -146,6 +146,22 @@ class DetailViewController: UIViewController {
     }
     
     //MARK: - IBActions
+    
+    func convertToInches(string: String) -> String {
+        if let number = Double(string) {
+            return String(number * 2.54)
+        }
+        return string
+    }
+    
+    func convertToCentimeters(string: String) -> String {
+        if let number = Double(string) {
+            return String(number / 2.54)
+        }
+        return string
+    }
+    
+    
     @IBAction func convertToUSDButtonTapped(_ sender: UIButton) {
     }
     
@@ -157,8 +173,13 @@ class DetailViewController: UIViewController {
         self.englishProperties.setTitleColor(.blue, for: .normal)
         
         switch currentEntity {
-        case is Character:
-            self.lenghtHeightLabel2.text = (currentEntity as! Character).heightConversion
+        case is Character, is Vehicle, is Starship:
+            guard let height = self.lenghtHeightLabel2.text, !height.isEmpty else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                return
+            }
+            self.lenghtHeightLabel2.text = self.convertToInches(string: height)
+            
         default: break
         }
     }
@@ -168,9 +189,15 @@ class DetailViewController: UIViewController {
         self.metricProperties.setTitleColor(.blue, for: .normal)
         
         switch currentEntity {
-        case is Character:
-            self.lenghtHeightLabel2.text = (currentEntity as! Character).height
-        default: break
+        case is Character, is Vehicle, is Starship:
+            guard let height = self.lenghtHeightLabel2.text, !height.isEmpty else {
+                print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+                return
+            }
+            self.lenghtHeightLabel2.text = self.convertToCentimeters(string: height)
+        default:
+            print("Error in file: \(#file), in the body of the function: \(#function) on line: \(#line)\n")
+            break
         }
     }
     
@@ -191,11 +218,15 @@ class DetailViewController: UIViewController {
         //view buttons
         usdProperties.isHidden = true
         creditProperties.isHidden = true
+        englishProperties.setTitleColor(.gray, for: .normal)
+        metricProperties.setTitleColor(.blue, for: .normal)
         
         //character's information
         self.nameLabel1.text = character.name
         self.makeBornLabel2.text = character.birthYear
+        
         self.lenghtHeightLabel2.text = character.height
+            
         self.classEyesLabel2.text = character.eyeColor
         self.crewHairLabel2.text = character.hairColor
         
@@ -214,6 +245,10 @@ class DetailViewController: UIViewController {
         //view buttons
         usdProperties.isHidden = false
         creditProperties.isHidden = false
+        englishProperties.setTitleColor(.gray, for: .normal)
+        metricProperties.setTitleColor(.blue, for: .normal)
+        usdProperties.setTitleColor(.gray, for: .normal)
+        creditProperties.setTitleColor(.blue, for: .normal)
         
         //MARK: - QUESTION Why does this work but not the switch statement below
         //doing the following populates the views on the first try without changing the pickerView
