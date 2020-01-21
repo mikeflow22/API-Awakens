@@ -150,6 +150,8 @@ class DetailViewController: UIViewController {
     func convertToInches(string: String) -> String {
         if let number = Double(string) {
             return String(number * 2.54)
+        } else{
+            self.presentAlert(message: "Cannot convert to inches")
         }
         return string
     }
@@ -157,6 +159,8 @@ class DetailViewController: UIViewController {
     func convertToCentimeters(string: String) -> String {
         if let number = Double(string) {
             return String(number / 2.54)
+        } else {
+            self.presentAlert(message: "Cannot convert into Centimeters")
         }
         return string
     }
@@ -164,6 +168,8 @@ class DetailViewController: UIViewController {
     func convertToUSD(string: String) -> String {
         if let number = Double(string) {
             return String(number / 2.50)
+        } else {
+            self.presentAlert(message: "Cannot convert to USD")
         }
         return string
     }
@@ -172,10 +178,14 @@ class DetailViewController: UIViewController {
     
         if let cost = currentEntity as? Vehicle  {
             return cost.costInCredits
+        } else {
+            presentAlert(message: "Cannot convert to Credit")
         }
         
         if let cost = currentEntity as? Starship {
             return cost.costInCredits
+        } else {
+            presentAlert(message: "Cannot convert to Credit")
         }
         
         return "a lot of money"
@@ -192,7 +202,6 @@ class DetailViewController: UIViewController {
         
         self.creditProperties.setTitleColor(.blue, for: .normal)
         self.usdProperties.setTitleColor(.gray, for: .normal)
-        
         self.costHomeLabel2.text = self.converBackToCredit()
     }
     
@@ -230,7 +239,13 @@ class DetailViewController: UIViewController {
     }
     
     //MARK: - Class Methods
-    
+    func presentAlert(message: String){
+        let alert = UIAlertController(title: "No Known Information", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
     func configureViewsForCharacter(_ character: Character) {
         getHomeworldFor(character: character)
         

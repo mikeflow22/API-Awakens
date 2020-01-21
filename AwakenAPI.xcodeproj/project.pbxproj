@@ -84,9 +84,6 @@
 			children = (
 				1B57FBAC23D5FDD5006186C1 /* Protocol */,
 				1B20E0E223D1F55C00DA4B60 /* Storyboards */,
-				1B20E0DF23D1F54100DA4B60 /* Views */,
-				1B20E0E423D1F61B00DA4B60 /* View Models */,
-				1B20E0DE23D1F52D00DA4B60 /* DataSource */,
 				1B20E0E023D1F54700DA4B60 /* View Controllers */,
 				1B20E0E123D1F55300DA4B60 /* Network */,
 				1B20E0DD23D1F52000DA4B60 /* Models */,
@@ -108,20 +105,6 @@
 				1B57FBB323D609DF006186C1 /* HomeworldManager.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		1B20E0DE23D1F52D00DA4B60 /* DataSource */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = DataSource;
-			sourceTree = "<group>";
-		};
-		1B20E0DF23D1F54100DA4B60 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		1B20E0E023D1F54700DA4B60 /* View Controllers */ = {
@@ -160,13 +143,6 @@
 				1B20E0D723D11F4000DA4B60 /* Info.plist */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		1B20E0E423D1F61B00DA4B60 /* View Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "View Models";
 			sourceTree = "<group>";
 		};
 		1B57FBAC23D5FDD5006186C1 /* Protocol */ = {
